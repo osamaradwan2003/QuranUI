@@ -1,0 +1,178 @@
+@import "./colors";
+
+// start global configration
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url("/dist/img/pattern.png");
+    background-color: $body_back;
+    background-size: cover;
+    font-family: 'Reem Kufi', cairo;
+    font-size: 1em;
+    font-weight: bold;
+    user-select: none;
+}
+
+a{
+    text-decoration: none;
+    color: $text;
+}
+
+// end global configration
+
+
+// satart using classes
+
+.unstyled{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.unstyled > li{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.7;
+    z-index: 0;
+}
+
+.overlay ~ * {
+    position: relative;
+    z-index: 1;
+}
+
+
+.sec_t{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    .title{
+        color: $text;
+        font-weight: bold;
+        font-size: 2em;
+        align-items: center;
+        margin: 0 15px;
+    }
+    &::before, &::after{
+        display: inline-block;
+        content: url("/dist/img/title-before.png");
+        
+    }
+
+    &::after{
+        transform: rotate(180deg);
+    }
+}
+
+
+.container{
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+}
+
+
+.border_v{
+    border: 2px solid $border;
+    border-radius: 50%;
+}
+
+.border_h{
+    width: 100%;
+    height: 86px;
+    background: url("/dist/img/border_h.svg");
+    margin: 20px 0;
+    background-size: 100% 100%;
+    background-position:center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(5px 1px 9px $shadow);
+}
+
+.clom{
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.btn_g {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .btn{
+        padding: 10px;
+        display: inline-block;
+        background-color: $btn_back;
+        margin: 15px 0;
+        min-width: 175px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.5em;
+        font-family: cairo;
+        cursor: pointer;
+        &:hover:not(.down_app_btn){
+            background-color: $hover;
+        }
+    }
+}
+
+
+.slect_box{
+    display: inline-block;
+    position: relative;
+    .s_arr{
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        margin-left: 5px;
+        color: $text;
+        display: inline-block;
+    }
+    .s_lg{
+        min-width: 100px;
+        text-align: center;
+        appearance: none;
+        outline: 0;
+        background-color: $btn_back;
+        border: none;
+        padding: 10px;
+        color: $text;
+        font-family: cairo;
+        font-weight: 400;
+        &:focus + .s_arr{
+            transform: rotate(180deg) translate(50%, 35%);
+            margin-left: 10px;
+        }
+    }
+
+}
+
+.form_group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 15px 0;
+    position: relative;
+}
+
+.blur{
+    filter: blur(5px);
+}
+
+// end usning classes

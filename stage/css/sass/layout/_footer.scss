@@ -1,0 +1,33 @@
+.footer{
+    background-color: $footer_back;
+    padding: 5px;
+    border-top: 3px solid $border;
+    margin-top: 5px;
+    .top{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-family: "cairo";
+        align-items: center;
+        .right{
+            .unstyled{
+                .link_item{
+                    .link_anc{
+                        font-size: 1em;
+                        &:hover{
+                            color: #777;
+                        }
+                    }
+                }
+            }
+        }
+        .left{
+            margin-left: 2em;
+        }
+    }
+    .bottom{
+        margin-top: 2em;
+        text-align: center;
+        color: #555;
+    }
+}

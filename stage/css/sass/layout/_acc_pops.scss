@@ -1,0 +1,67 @@
+.pop_up{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 99999;
+    filter: blur(0px) !important;
+    .over_blur_flow{
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        right: 0;
+        top: 0;
+        z-index: -1;
+        background-color: rgba(0,0,0,0.6);
+        
+    }
+
+    .reg_f_popup{
+        min-width: 50%;
+        min-height: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $form_back;
+        border-radius: 25px;
+        border: 10px solid $border;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+
+        .form_group{
+            padding: 25px 0;
+        }
+
+        .inp_lab {
+            position: absolute;
+            right: 5%;
+            color: #222;
+            bottom: calc(25px + 10px);
+            font-weight: normal;
+            transition: all 300ms ease-in-out;
+            z-index: -1;
+        }
+
+        .acc_inp {
+            width: 95%;
+            height: 36px;
+            border: none;
+            background: transparent;
+            border-bottom: 3px solid $border;
+            outline: 0;
+            transition: all 300ms ease-in-out;
+            &:focus{
+                border-bottom: 3px solid $footer_back;
+
+            }
+        }
+        .inp_lab_top{
+            bottom: calc(25px + 40px);
+            right: 1%;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.pop_up.acc_pop(data-type="login")
+    .over_blur_flow
+    form.reg_f_popup#login_form(action="http://localhost:8000")
+        .form_group
+            input(type="text",
+                name="lgiem",
+                id="lgiem",
+                class="acc_inp",
+                placeholder="",
+                autocomplete="off",
+                require)
+            label(for="lgiem", class="inp_lab")
+                | البريد الإلكتروني
+        .form_group
+            input(type="password",
+                autocomplete="off",
+                name="lgipass",
+                id="lgipass",
+                class="acc_inp",
+                placeholder="", 
+                require)
+            label(for="lgipass", class="inp_lab")
+                | كلمة المرور
+        
+        .form_group
+            button(type="submit" class="acc_btn")
+                | دخول
+        
+        .form_group
+            a(href="#", class="f_t_btn" id="f_pass")
+                | نسيت كلمة المرور
+
+        .acc_cr
+            span.idh_c_txt
+                | ليس لديك حساب
+            a(href="#", class="f_t_btn", id="cr_acc")
+                | إنشاء حساب الاٌن
+
+

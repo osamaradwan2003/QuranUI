@@ -1,0 +1,29 @@
+{
+  "name": "learn",
+  "version": "1.0.0",
+  "description": "learn gulpjs",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "dependencies": "0.0.1",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-livereload": "^4.0.2",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemap": "^1.0.1",
+    "minify": "^5.1.0",
+    "our-gulp-server-livereload": "^1.3.5"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-minify": "^3.1.0",
+    "gulp-server-livereload": "^1.9.2",
+    "gulp-sourcemaps": "^2.6.5"
+  },
+  "scripts": {
+    "test": "hellow",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

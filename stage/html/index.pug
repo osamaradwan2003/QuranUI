@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+- var ishome = true
+
+html(lang="ar", dir="rtl")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Quran
+        include ./pug/components/styles
+    body
+
+        .main_app
+            include ./pug/layout/header
+            include ./pug/layout/cards_dit
+            .border_h
+            include ./pug/layout/sign_s
+            include ./pug/layout/footer
+        include ./pug/components/account_pups.pug
+        include ./pug/components/js

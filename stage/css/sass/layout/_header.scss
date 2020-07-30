@@ -1,0 +1,92 @@
+.header{
+    background-image: url("/dist/img/header-bg2.png");
+    background-size: cover;
+    min-height: 150px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    .center{
+        width: 33%;
+        min-height: 100px;
+        max-height: 100%;
+        height: 150px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, -51%);
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        z-index: 88;
+        img{
+            height: 150%;
+            width: 100%;
+        }
+        .logo {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, 50%);
+            width: 36%;
+            height: 50%;
+            color: #fff;
+
+        }
+    }
+
+    .bottom{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left,.right{
+            border-bottom: 3px solid $border;
+            width: 44.29%;
+            .unstyled{
+                .link_item{
+                    a{
+                        display: block;
+                        text-align: center;
+                        padding: 15px;
+                        color: $h_l_c;
+                        transition: all 0.2s ease-in-out;
+                        font-size: 1.3em;
+                        &:hover{
+                            color: $text
+                        }
+                    }
+                }
+            }
+        }
+
+        .center{
+            z-index: -1;
+            bottom: 0;
+            transform: translate(-50%, 50%);
+            width: 12.4%;
+        }
+
+        .left{
+            .unstyled{
+                margin-left: 20px;
+                margin-right: 20px;
+                text-align: left;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+
+        .right{
+            .unstyled{
+                margin-right: 20px;
+                margin-left: 20px;
+                text-align: right;
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
+    }
+}

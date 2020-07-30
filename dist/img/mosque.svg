@@ -1,0 +1,14 @@
+<svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+
+    <style>
+        .st{
+            fill: transparent;
+            stroke-width: 5px;
+            stroke: #29a2a9;
+        }
+    </style>
+
+    <g>
+        <path class="st" d="m423.577 512s51.387-38.405 51.387-116.513c0-130.179-199.38-125.383-199.38-217.879h-39.167c0 92.496-199.38 87.7-199.38 217.879-.001 78.108 51.386 116.513 51.386 116.513" />
+    </g>
+</svg>

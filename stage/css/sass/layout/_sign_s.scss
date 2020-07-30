@@ -1,0 +1,68 @@
+.sign_s {
+    display: flex;
+    justify-content: space-around;
+
+    .left,.right{
+        display: flex;
+        flex-wrap: wrap;
+        width: 49%;
+    }
+
+
+    .left{
+        justify-content: flex-end;
+        .container{
+            flex-direction: row-reverse;
+            justify-content: center;
+            .btn_g{
+                width: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 15px;
+            }
+        }
+    }
+
+    .ph_m{
+        background: url("/dist/img/phone_m.png");
+        width: 150px;
+        height: 300px;
+        background-size: 100% 100%;
+    }
+
+    .s_t {
+        font-size: 1.5em;
+        color: #fafafa;
+        font-family: changa;
+        font-weight: bold;
+        width: 100%;
+        flex-basis: 100%;
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    .down_app_btn{
+        width: 200px;
+        background: #111;
+        .btn_t_t{
+            font-size: 10px;
+            display: block;
+            text-align: left;
+        }
+
+        .btn_text{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: row-reverse;
+            margin-top: 5px;
+            .btn_ico{
+                margin: 0 5px;
+            }
+        }
+        &:hover{
+            background-color: #222;
+        }
+    }
+}

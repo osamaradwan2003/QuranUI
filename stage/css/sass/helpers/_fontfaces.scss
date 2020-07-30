@@ -1,0 +1,38 @@
+@font-face {
+  font-family: Amirifont;
+  font-weight: bold;
+  font-size: 1.2em;
+  src: url("/dist/webfonts/Amiri\ Quran.ttf");
+}
+
+@font-face {
+  font-family: AmiriColoredFont;
+  font-weight: bold;
+  font-size: 1.2em;
+  src: url("/dist/webfonts/AmiriQuranColored.ttf");
+}
+
+@font-face {
+  font-family: "cairo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("cairo") url("/dist/webfonts/cairo.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: changa;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("changa"), url("/dist/webfonts/changa.woff2") format("woff2");
+}
+/* arabic */
+@font-face {
+  font-family: "Reem Kufi";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Reem Kufi Regular"), local("ReemKufi-Regular"),
+    url("/dist/webfonts/Rem Kufi.woff2") format("woff2");
+}
