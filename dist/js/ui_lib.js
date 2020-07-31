@@ -756,28 +756,26 @@ function isArrLike(obj) {
       },
     };
 
-    "click input focusIn focusOut mouseEnter keyPress unload scroll resize load focus submit dbClick mouseLeave keyDown keyUp blur hover change"
-    .split(" ")
-      .each(function (e) {
-        UI.pr[e] = function (callback) {
-          if (!callback) {
-            for (let i = 0; i < this.length; i++) {
-              if (e.toLowerCase() == "focus" || e.toLowerCase() == "focusin") {
-                this[i].focus();
-                return this;
-              } else if (e.toLowerCase() == "click") {
-                this[i].click();
-                return this;
-              }
-              this[i]["on" + e.toLowerCase()]();
+    "click input focusIn focusOut mouseEnter keyPress unload scroll resize load focus submit dbClick mouseLeave keyDown keyUp blur hover change".split(" ").each(function (e) {
+      UI.pr[e] = function (callback) {
+        if (!callback) {
+          for (let i = 0; i < this.length; i++) {
+            if (e.toLowerCase() == "focus" || e.toLowerCase() == "focusin") {
+              this[i].focus();
+              return this;
+            } else if (e.toLowerCase() == "click") {
+              this[i].click();
+              return this;
             }
-            return this;
+            this[i]["on" + e.toLowerCase()]();
           }
-          if (!isFunc(callback)) return UI.err("Callback is Not a function");
-          this.addEvent(e, callback);
           return this;
-        };
-      });
+        }
+        if (!isFunc(callback)) return UI.err("Callback is Not a function");
+        this.addEvent(e, callback);
+        return this;
+      };
+    });
 
     /**
      * marge to object and return frist
@@ -929,14 +927,9 @@ function isArrLike(obj) {
       },
     });
 
-    UI.each(
-      "Boolean Number String Function Array Date RegExp Object Error Symbol".split(
-        " "
-      ),
-      function (e, i) {
-        c2t["[object " + e + "]"] = e.toLowerCase();
-      }
-    );
+    UI.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function (e, i) {
+      c2t["[object " + e + "]"] = e.toLowerCase();
+    });
 
     UI.pr.omg({
       /**
@@ -1213,6 +1206,7 @@ function isArrLike(obj) {
     if (!noGlobal) {
       window.ui = window.s = UI;
     }
+
 
     return UI;
   })(window)
