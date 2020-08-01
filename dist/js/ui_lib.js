@@ -1,5 +1,4 @@
-/* jshint esversion: 6, proto: true */
-
+/* jshint esversion: 6, proto: true, expr: true */
 // start helpers Methods
 
 function cls() {
@@ -513,7 +512,7 @@ function isArrLike(obj) {
             }
             if (!UI.isEmpty(selector)) {
               if (selector.indexOf(child[j]) >= 0) {
-                selector.each(function () {
+                selector.each(function () { // jshint ignore:line
                   matc.push(this);
                 });
               }
@@ -568,7 +567,7 @@ function isArrLike(obj) {
             }
             if (!UI.isEmpty(selector)) {
               if (selector.indexOf(child[j]) >= 0) {
-                selector.each(function () {
+                selector.each(function () { // jshint ignore:line
                   matc.push(this);
                 });
               }
