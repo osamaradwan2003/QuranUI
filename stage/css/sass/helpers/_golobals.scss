@@ -2,11 +2,11 @@
 
 // start global configration
 
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
+body {
     background-image: url("/dist/img/pattern.png");
     background-color: $body_back;
     background-size: cover;
@@ -16,7 +16,7 @@ body{
     user-select: none;
 }
 
-a{
+a {
     text-decoration: none;
     color: $text;
 }
@@ -26,7 +26,7 @@ a{
 
 // satart using classes
 
-.unstyled{
+.unstyled {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -34,13 +34,13 @@ a{
     flex-direction: row;
 }
 
-.unstyled > li{
+.unstyled>li {
     margin-left: 15px;
     margin-right: 15px;
 }
 
 
-.overlay{
+.overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -49,61 +49,63 @@ a{
     z-index: 0;
 }
 
-.overlay ~ * {
+.overlay~* {
     position: relative;
     z-index: 1;
 }
 
 
-.sec_t{
+.sec_t {
     width: 100%;
     align-items: center;
     justify-content: center;
     display: flex;
 
-    .title{
+    .title {
         color: $text;
         font-weight: bold;
         font-size: 2em;
         align-items: center;
         margin: 0 15px;
     }
-    &::before, &::after{
+
+    &::before,
+    &::after {
         display: inline-block;
         content: url("/dist/img/title-before.png");
-        
+
     }
 
-    &::after{
+    &::after {
         transform: rotate(180deg);
     }
 }
 
 
-.container{
+.container {
     width: 98%;
     margin: 0 auto;
     display: flex;
 }
 
 
-.border_v{
+.border_v {
     border: 2px solid $border;
     border-radius: 50%;
 }
 
-.border_h{
+.border_h {
     width: 100%;
     height: 86px;
     background: url("/dist/img/border_h.svg");
     margin: 20px 0;
     background-size: 100% 100%;
-    background-position:center;
+    background-position: center;
     background-repeat: no-repeat;
     filter: drop-shadow(5px 1px 9px $shadow);
 }
 
-.clom{
+.clom {
     flex-direction: column;
     justify-content: space-around;
 }
@@ -113,7 +115,8 @@ a{
     justify-content: center;
     align-items: center;
     width: 100%;
-    .btn{
+
+    .btn {
         padding: 10px;
         display: inline-block;
         background-color: $btn_back;
@@ -124,17 +127,19 @@ a{
         font-size: 1.5em;
         font-family: cairo;
         cursor: pointer;
-        &:hover:not(.down_app_btn){
+
+        &:hover:not(.down_app_btn) {
             background-color: $hover;
         }
     }
 }
 
 
-.slect_box{
+.slect_box {
     display: inline-block;
     position: relative;
-    .s_arr{
+
+    .s_arr {
         position: absolute;
         left: 0;
         top: 50%;
@@ -143,7 +148,8 @@ a{
         color: $text;
         display: inline-block;
     }
-    .s_lg{
+
+    .s_lg {
         min-width: 100px;
         text-align: center;
         appearance: none;
@@ -154,7 +160,8 @@ a{
         color: $text;
         font-family: cairo;
         font-weight: 400;
-        &:focus + .s_arr{
+
+        &:focus+.s_arr {
             transform: rotate(180deg) translate(50%, 35%);
             margin-left: 10px;
         }
@@ -162,16 +169,28 @@ a{
 
 }
 
+.inline_f_g {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form_group {
+        width: initial;
+    }
+}
+
 .form_group {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 15px 0;
+    margin: 5px 0;
     position: relative;
 }
 
-.blur{
+
+
+.blur {
     filter: blur(5px);
 }
 

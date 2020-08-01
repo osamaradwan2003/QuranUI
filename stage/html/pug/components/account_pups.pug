@@ -1,8 +1,13 @@
-.pop_up.acc_pop(data-type="login")
+.pop_up#login.acc_pop.close_pop(data-type="login")
     .over_blur_flow
-    form.reg_f_popup#login_form(action="http://localhost:8000")
+    form.reg_f_popup#login_form(method="POST" action="http://localhost:8000")
+        .close_pop_up
+            i.fas.fa-times
         .form_group
-            input(type="text",
+            h2.form_title
+                | تسجيل الدخول
+        .form_group
+            input(type="email",
                 name="lgiem",
                 id="lgiem",
                 class="acc_inp",
@@ -21,7 +26,11 @@
                 require)
             label(for="lgipass", class="inp_lab")
                 | كلمة المرور
-        
+        .form_group.plc_ch
+            input(type="checkbox", value="1" id="svlg" name="svlg", checked)
+            label(for="svlg")
+                | الحفاظ على تسجيل الدخول
+                
         .form_group
             button(type="submit" class="acc_btn")
                 | دخول
@@ -30,10 +39,93 @@
             a(href="#", class="f_t_btn" id="f_pass")
                 | نسيت كلمة المرور
 
-        .acc_cr
+        .acc_cr.form_group
             span.idh_c_txt
                 | ليس لديك حساب
-            a(href="#", class="f_t_btn", id="cr_acc")
+            a(data-o-p-f-p="singup",class="f_t_btn", id="cr_acc")
                 | إنشاء حساب الاٌن
+
+
+.pop_up#singup.acc_pop.close_pop(data-type="login")
+    .over_blur_flow
+    form.reg_f_popup#signup_form(method="POST" action="http://localhost:8000")
+        .close_pop_up
+            i.fas.fa-times
+        .form_group
+            h2.form_title
+                | إنشاء حساب
+        .inline_f_g.na_f_cr
+            .form_group
+                input(type="text",
+                    name="crfname",
+                    id="crfname",
+                    class="acc_inp",
+                    placeholder="",
+                    autocomplete="off",
+                    require)
+                label(for="crfname", class="inp_lab")
+                    | الاسم الأول
+            .form_group
+                input(type="text",
+                    name="crlsname",
+                    id="crlsname",
+                    class="acc_inp",
+                    placeholder="",
+                    autocomplete="off",
+                    require)
+                label(for="crlsname", class="inp_lab")
+                    | إسم العائلة
+        .form_group
+            input(type="email",
+                name="crgiem",
+                id="criem",
+                class="acc_inp",
+                placeholder="",
+                autocomplete="off",
+                require)
+            label(for="criem", class="inp_lab")
+                | البريد الإلكتروني
+        .form_group
+            input(type="password",
+                autocomplete="off",
+                name="cripass",
+                id="cripass",
+                class="acc_inp",
+                placeholder="", 
+                require)
+            label(for="cripass", class="inp_lab")
+                | كلمة المرور
+        .inline_f_g.select_f
+            .form_group
+                .slect_box
+                    select.s_lg#crslday(title="يوم")
+                        option(selected disabled)
+                            | يوم
+                    i.s_arr.fa.fa-angle-up(aria-hidden='true')
+            .form_group
+                .slect_box
+                    select.s_lg#crslmonth(title="شهر")
+                        option(selected disabled)
+                            | شهر
+                    i.s_arr.fa.fa-angle-up(aria-hidden='true')
+            .form_group
+                .slect_box
+                    select.s_lg#crslyear(title="سنة الميلاد")
+                        option(disabled)
+                            | سنة
+                    i.s_arr.fa.fa-angle-up(aria-hidden='true')
+        .form_group.plc_ch
+            input(type="checkbox", value="1" id="polccr" name="polccr", checked)
+            label(for="polccr")
+                | أقر بموافقتي على  
+                a.pr_tex(href="#")
+                    | سياسة الخصوصية
+        .form_group
+            button(type="submit" class="acc_btn")
+                |إنشاء حساب
+        
+        .form_group
+            a(data-o-p-f-p="login", class="f_t_btn" id="cr_to_log")
+                | تسجيل الدخول
 
 

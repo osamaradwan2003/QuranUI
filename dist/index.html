@@ -63,7 +63,7 @@
       <div class="border_h"></div>
       <section class="sign_s">
         <div class="right">
-          <div class="btn_g clom"><a class="btn" href="#">تسجيل الدخول</a><a class="btn" href="#">إنشاء حساب</a></div>
+          <div class="btn_g clom"><a class="btn" data-o-pop="login">تسجيل الدخول</a><a class="btn" data-o-pop="singup">إنشاء حساب</a></div>
         </div>
         <div class="border_v"></div>
         <div class="left">
@@ -102,26 +102,91 @@
         <div class="bottom">Quran <i class="fa fa-copyright" aria-hidden="true"></i><span>2020</span></div>
       </footer>
     </div>
-    <div class="pop_up acc_pop" data-type="login">
+    <div class="pop_up acc_pop close_pop" id="login" data-type="login">
       <div class="over_blur_flow"></div>
-      <form class="reg_f_popup" id="login_form" action="http://localhost:8000">
+      <form class="reg_f_popup" id="login_form" method="POST" action="http://localhost:8000">
+        <div class="close_pop_up"><i class="fas fa-times"></i></div>
         <div class="form_group">
-          <input class="acc_inp" type="text" name="lgiem" id="lgiem" placeholder="" autocomplete="off" require="require"/>
+          <h2 class="form_title">تسجيل الدخول</h2>
+        </div>
+        <div class="form_group">
+          <input class="acc_inp" type="email" name="lgiem" id="lgiem" placeholder="" autocomplete="off" require="require"/>
           <label class="inp_lab" for="lgiem">البريد الإلكتروني</label>
         </div>
         <div class="form_group">
           <input class="acc_inp" type="password" autocomplete="off" name="lgipass" id="lgipass" placeholder="" require="require"/>
           <label class="inp_lab" for="lgipass">كلمة المرور</label>
         </div>
+        <div class="form_group plc_ch">
+          <input type="checkbox" value="1" id="svlg" name="svlg" checked="checked"/>
+          <label for="svlg">الحفاظ على تسجيل الدخول</label>
+        </div>
         <div class="form_group">
           <button class="acc_btn" type="submit">دخول</button>
         </div>
         <div class="form_group"><a class="f_t_btn" href="#" id="f_pass">نسيت كلمة المرور</a></div>
-        <div class="acc_cr"><span class="idh_c_txt">ليس لديك حساب</span><a class="f_t_btn" href="#" id="cr_acc">إنشاء حساب الاٌن</a></div>
+        <div class="acc_cr form_group"><span class="idh_c_txt">ليس لديك حساب</span><a class="f_t_btn" data-o-p-f-p="singup" id="cr_acc">إنشاء حساب الاٌن</a></div>
+      </form>
+    </div>
+    <div class="pop_up acc_pop close_pop" id="singup" data-type="login">
+      <div class="over_blur_flow"></div>
+      <form class="reg_f_popup" id="signup_form" method="POST" action="http://localhost:8000">
+        <div class="close_pop_up"><i class="fas fa-times"></i></div>
+        <div class="form_group">
+          <h2 class="form_title">إنشاء حساب</h2>
+        </div>
+        <div class="inline_f_g na_f_cr">
+          <div class="form_group">
+            <input class="acc_inp" type="text" name="crfname" id="crfname" placeholder="" autocomplete="off" require="require"/>
+            <label class="inp_lab" for="crfname">الاسم الأول</label>
+          </div>
+          <div class="form_group">
+            <input class="acc_inp" type="text" name="crlsname" id="crlsname" placeholder="" autocomplete="off" require="require"/>
+            <label class="inp_lab" for="crlsname">إسم العائلة</label>
+          </div>
+        </div>
+        <div class="form_group">
+          <input class="acc_inp" type="email" name="crgiem" id="criem" placeholder="" autocomplete="off" require="require"/>
+          <label class="inp_lab" for="criem">البريد الإلكتروني</label>
+        </div>
+        <div class="form_group">
+          <input class="acc_inp" type="password" autocomplete="off" name="cripass" id="cripass" placeholder="" require="require"/>
+          <label class="inp_lab" for="cripass">كلمة المرور</label>
+        </div>
+        <div class="inline_f_g select_f">
+          <div class="form_group">
+            <div class="slect_box">
+              <select class="s_lg" id="crslday" title="يوم">
+                <option selected="selected" disabled="disabled">يوم</option>
+              </select><i class="s_arr fa fa-angle-up" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="slect_box">
+              <select class="s_lg" id="crslmonth" title="شهر">
+                <option selected="selected" disabled="disabled">شهر</option>
+              </select><i class="s_arr fa fa-angle-up" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="slect_box">
+              <select class="s_lg" id="crslyear" title="سنة الميلاد">
+                <option disabled="disabled">سنة</option>
+              </select><i class="s_arr fa fa-angle-up" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="form_group plc_ch">
+          <input type="checkbox" value="1" id="polccr" name="polccr" checked="checked"/>
+          <label for="polccr">أقر بموافقتي على  <a class="pr_tex" href="#">سياسة الخصوصية</a></label>
+        </div>
+        <div class="form_group">
+          <button class="acc_btn" type="submit">إنشاء حساب</button>
+        </div>
+        <div class="form_group"><a class="f_t_btn" data-o-p-f-p="login" id="cr_to_log">تسجيل الدخول</a></div>
       </form>
     </div>
     <script src="/dist/js/fontawesome.min.js"></script>
-    <script src="/dist/js/jquery-3.4.1.min.js"></script>
     <script src="/dist/js/ui_lib.js"></script>
     <script src="/dist/js/app.js"></script>
   </body>

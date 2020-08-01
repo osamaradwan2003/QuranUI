@@ -210,7 +210,7 @@ function isArrLike(obj) {
           return this;
         }
       },
-      html: function (val) {
+      html: function (val, appendType) {
         if (!val || val.isEmpty()) {
           let html = [];
           this.get_set_ele_prop("innerHTML", function (e, i) {
@@ -218,9 +218,15 @@ function isArrLike(obj) {
           });
           return !html.isEmpty() ? (html.length == 1 ? html[0] : html) : "";
         } else {
-          this.get_set_ele_prop("innerHTML", function (e, i) {
-            e[i] = val;
-          });
+          if (appendType) {
+            this.each(function () {
+              this.insertAdjacentHTML(appendType, val);
+            });
+          } else {
+            this.get_set_ele_prop("innerHTML", function (e, i) {
+              e[i] = val;
+            });
+          }
           return this;
         }
       },
@@ -318,24 +324,23 @@ function isArrLike(obj) {
        */
       on: function (evt, callback, preventDefulte = false, opt = false) {
         if (!isFunc(callback)) return UI.err("Callback is Not a function");
-        evt = evt.toLowerCase();
-        if (evt == "hover") {
-          evt = "mouseenter";
-        } else if (evt == "blur") {
-          evt = "mouseleave";
-        }
+        evt = evt.toLowerCase().split(" ");
         let self = this;
-        this.each(function (_, i) {
-          this.addEventListener(
-            evt,
-            function (e) {
-              if (preventDefulte) e.preventDefault();
-              if (isFunc(callback)) {
-                callback.call(this, e, i, self);
-              }
-            },
-            opt
-          );
+        this.each(function (e, i) {
+          evt.each(function () {
+            let event = this;
+            if (event == "hover") event = "mousemove";
+            e.addEventListener(
+              event,
+              function (ev) {
+                if (preventDefulte) ev.preventDefault();
+                if (isFunc(callback)) {
+                  callback.call(e, ev, i, self);
+                }
+              },
+              opt
+            );
+          });
         });
         return this;
       },
@@ -347,7 +352,7 @@ function isArrLike(obj) {
       attr: function (attrName, attrVal) {
         if (!attrName) return this;
 
-        if (!UI.isEmpty(attrVal)) {
+        if (attrVal) {
           this.each(function () {
             this.setAttribute(attrName, attrVal);
           });
@@ -358,7 +363,7 @@ function isArrLike(obj) {
             this.each(function () {
               arr.push(this.getAttribute(attrName));
             });
-            return arr;
+            return arr.length == 1 ? arr[0] : arr;
           }
         }
       },
@@ -452,22 +457,25 @@ function isArrLike(obj) {
        * @param {String | Element} selector
        */
       parents: function (selector) {
-        if (!UI.isElem(selector)) selector = document.querySelector(selector);
+        if (!UI.isElem(selector)) selector = UI.makeArr(document.querySelectorAll(selector));
         let parentNode = this.makeParentTree();
         let matches = [];
         this.each(function (_, i) {
           let j = 0;
-          while (j < parentNode[i].length) {
-            if (matches.indexOf(parentNode[i][j]) >= 0) {
+          prf:
+            for (; j < parentNode[i].length;) {
+              if (matches.indexOf(parentNode[i][j]) >= 0) {
+                j++;
+                continue;
+              }
+              for (let z = 0; z < selector.length; z++) {
+                if (selector[z] == parentNode[i][j]) {
+                  matches.push(selector[z]);
+                  break prf;
+                }
+              }
               j++;
-              continue;
             }
-            if (selector == parentNode[i][j]) {
-              matches.push(parentNode[i][j]);
-              break;
-            }
-            j++;
-          }
         });
 
         return new UI.pr.init(matches, this);
@@ -625,8 +633,8 @@ function isArrLike(obj) {
               }
             }
             return this;
-          } else if (type(k) == "string") {
-            return this.attr("data-" + k);
+          } else if (type(key) == "string") {
+            return this.attr("data-" + key);
           }
         } else {
           this.attr("data-" + key, val);
@@ -1159,6 +1167,9 @@ function isArrLike(obj) {
       if (!elem) return;
       if (elem.isEmpty()) return;
       root = root || rootUi;
+      if (isFunc(elem)) {
+        UI.ready(elem);
+      }
       if (UI.isElem(elem)) {
         this[0] = elem;
         this.length = 1;
@@ -1181,6 +1192,16 @@ function isArrLike(obj) {
 
     init.prototype = UI.pr;
     var rootUi = UI(document);
+
+    UI.ready = function (callback) {
+      // see if DOM is already available
+      if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(() => callback.call(document), 1);
+      } else {
+        document.addEventListener("DOMContentLoaded", () => callback.call(document));
+      }
+    };
 
     if (typeof define == "function" && define.amd) {
       define("UI", [], function () {

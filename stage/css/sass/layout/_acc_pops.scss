@@ -1,4 +1,18 @@
-.pop_up{
+.close_pop {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    z-index: -5;
+}
+
+.open_pop {
+    transform: scale(1);
+    z-index: 9999;
+}
+
+.pop_up {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -6,18 +20,19 @@
     right: 0;
     z-index: 99999;
     filter: blur(0px) !important;
-    .over_blur_flow{
+    transition: all 400ms ease-in-out;
+
+    .over_blur_flow {
         width: 100%;
         position: absolute;
         height: 100%;
         right: 0;
         top: 0;
         z-index: -1;
-        background-color: rgba(0,0,0,0.6);
-        
+        background-color: rgba(0, 0, 0, 0.6);
     }
 
-    .reg_f_popup{
+    .reg_f_popup {
         min-width: 50%;
         min-height: 50%;
         position: absolute;
@@ -27,20 +42,67 @@
         background-color: $form_back;
         border-radius: 25px;
         border: 10px solid $border;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-direction: column;
 
-        .form_group{
-            padding: 25px 0;
+        .close_pop_up {
+            cursor: pointer;
+            position: absolute;
+            right: 2%;
+            top: 1%;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            background-color: $border;
+            z-index: 999;
+        }
+
+        .form_group {
+            padding: 10px 0;
+        }
+
+        .na_f_cr {
+            .form_group {
+                width: 49%;
+            }
+        }
+
+        .select_f {
+            justify-content: flex-start;
+            margin-right: 10px;
+
+            .form_group {
+                margin: 5px;
+
+            }
+        }
+
+        .plc_ch {
+            justify-content: flex-start;
+            margin-right: 15px;
+
+            label {
+                margin-right: 8px;
+                font-family: cairo;
+                color: $footer_back;
+
+                a {
+                    color: #009688;
+                }
+            }
         }
 
         .inp_lab {
             position: absolute;
             right: 5%;
             color: #222;
-            bottom: calc(25px + 10px);
+            bottom: 20px;
             font-weight: normal;
             transition: all 300ms ease-in-out;
             z-index: -1;
@@ -54,14 +116,47 @@
             border-bottom: 3px solid $border;
             outline: 0;
             transition: all 300ms ease-in-out;
-            &:focus{
-                border-bottom: 3px solid $footer_back;
 
+            &:focus {
+                border-bottom: 3px solid $footer_back;
             }
         }
-        .inp_lab_top{
+
+        .inp_lab_top {
             bottom: calc(25px + 40px);
             right: 1%;
+        }
+
+        .acc_btn {
+            background-color: $border;
+            border: none;
+            cursor: pointer;
+            color: $text;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-family: cairo;
+        }
+
+        .form_title,
+        #f_pass,
+        .idh_c_txt,
+        .pop_up,
+        .f_t_btn {
+            color: $body_back;
+            font-family: cairo;
+            text-align: center;
+        }
+
+        .f_t_btn {
+            cursor: pointer;
+        }
+
+        #cr_acc {
+            color: #37747e;
+            margin-right: 8px;
+            font-size: 14px;
         }
     }
 }
