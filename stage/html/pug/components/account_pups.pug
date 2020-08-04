@@ -16,6 +16,7 @@
                 require)
             label(for="lgiem", class="inp_lab")
                 | البريد الإلكتروني
+            .tol_tip.tol_bottom.err_tip
         .form_group
             input(type="password",
                 autocomplete="off",
@@ -26,6 +27,7 @@
                 require)
             label(for="lgipass", class="inp_lab")
                 | كلمة المرور
+            .tol_tip.tol_bottom.err_tip
         .form_group.plc_ch
             input(type="checkbox", value="1" id="svlg" name="svlg", checked)
             label(for="svlg")
@@ -48,7 +50,7 @@
 
 .pop_up#singup.acc_pop.close_pop(data-type="login")
     .over_blur_flow
-    form.reg_f_popup#signup_form(method="POST" action="http://localhost:8000")
+    form.reg_f_popup#signup_form(name="cracc", method="POST" action="http://localhost:8000")
         .close_pop_up
             i.fas.fa-times
         .form_group
@@ -62,9 +64,10 @@
                     class="acc_inp",
                     placeholder="",
                     autocomplete="off",
-                    require)
+                    )
                 label(for="crfname", class="inp_lab")
                     | الاسم الأول
+                .tol_tip.tol_bottom.err_tip
             .form_group
                 input(type="text",
                     name="crlsname",
@@ -72,9 +75,10 @@
                     class="acc_inp",
                     placeholder="",
                     autocomplete="off",
-                    require)
+                    )
                 label(for="crlsname", class="inp_lab")
                     | إسم العائلة
+                .tol_tip.tol_bottom.err_tip
         .form_group
             input(type="email",
                 name="crgiem",
@@ -82,9 +86,10 @@
                 class="acc_inp",
                 placeholder="",
                 autocomplete="off",
-                require)
+                )
             label(for="criem", class="inp_lab")
                 | البريد الإلكتروني
+            .tol_tip.tol_bottom.err_tip
         .form_group
             input(type="password",
                 autocomplete="off",
@@ -92,34 +97,39 @@
                 id="cripass",
                 class="acc_inp",
                 placeholder="", 
-                require)
+                )
             label(for="cripass", class="inp_lab")
                 | كلمة المرور
+            .tol_tip.tol_bottom.err_tip
         .inline_f_g.select_f
             .form_group
                 .slect_box
                     select.s_lg#crslday(title="يوم")
-                        option(selected disabled)
+                        option(selected disabled value="")
                             | يوم
                     i.s_arr.fa.fa-angle-up(aria-hidden='true')
+                .tol_tip.tol_bottom.err_tip
             .form_group
                 .slect_box
                     select.s_lg#crslmonth(title="شهر")
-                        option(selected disabled)
+                        option(selected disabled value="")
                             | شهر
                     i.s_arr.fa.fa-angle-up(aria-hidden='true')
+                .tol_tip.tol_bottom.err_tip
             .form_group
                 .slect_box
                     select.s_lg#crslyear(title="سنة الميلاد")
-                        option(disabled)
+                        option(disabled selected value="")
                             | سنة
                     i.s_arr.fa.fa-angle-up(aria-hidden='true')
+                .tol_tip.tol_bottom.err_tip
         .form_group.plc_ch
             input(type="checkbox", value="1" id="polccr" name="polccr", checked)
             label(for="polccr")
                 | أقر بموافقتي على  
                 a.pr_tex(href="#")
                     | سياسة الخصوصية
+            .tol_tip.tol_bottom.err_tip
         .form_group
             button(type="submit" class="acc_btn")
                 |إنشاء حساب

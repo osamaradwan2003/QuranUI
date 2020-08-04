@@ -456,25 +456,29 @@ function isArrLike(obj) {
        * @param {String | Element} selector
        */
       parents: function (selector) {
-        if (!UI.isElem(selector)) selector = UI.makeArr(document.querySelectorAll(selector));
         let parentNode = this.makeParentTree();
+        if (!selector || UI.isEmpty(selector)) {
+          return new UI.pr.init(this.parentUntil(), this);
+        }
         let matches = [];
+        selector = UI.makeArr(document.querySelectorAll(selector)) || selector;
+
         this.each(function (_, i) {
-          let j = 0;
-          prf:
-            for (; j < parentNode[i].length;) {
-              if (matches.indexOf(parentNode[i][j]) >= 0) {
-                j++;
-                continue;
-              }
-              for (let z = 0; z < selector.length; z++) {
-                if (selector[z] == parentNode[i][j]) {
-                  matches.push(selector[z]);
-                  break prf;
+          if (UI.isElem(selector)) {
+            if (matches.indexOf(selector) == -1) {
+              if (parentNode[i].indexOf(selector) != -1) matches.push(selector);
+            }
+          } else {
+            //print(parentNode[i]);
+            for (let j = 0; j < selector.length; j++) {
+              if (matches.indexOf(selector[j]) == -1) {
+                if (parentNode[i].indexOf(selector[j])) {
+                  matches.push(selector[j]);
+                  break;
                 }
               }
-              j++;
             }
+          }
         });
 
         return new UI.pr.init(matches, this);
@@ -498,29 +502,20 @@ function isArrLike(obj) {
        * @param {String | Element} selector
        */
       siblings: function (selector) {
-        if (!UI.isElem(selector))
-          selector = UI.makeArr(document.querySelectorAll(selector));
         let matc = [];
         this.each(function () {
           let parent = this.parentElement;
           let child = [...UI.makeArr(parent.children)];
-          let j = 0;
-          while (j < child.length) {
-            if (this == child[j] || matc.indexOf(child[j]) >= 0) {
-              j++;
-              continue;
-            }
-            if (!UI.isEmpty(selector)) {
-              if (selector.indexOf(child[j]) >= 0) {
-                selector.each(function () { // jshint ignore:line
-                  matc.push(this);
-                });
+          if (selector && !UI.isEmpty(selector)) {
+            if (UI.isElem(selector)) {
+              if (child.indexOf(selector) != 0) {
+                matc.push(selector);
               }
             } else {
-              matc.push(child[j]);
+              matc.push(...UI.makeArr(parent.querySelectorAll(selector)));
             }
-            //console.log(selector.indexOf(child[j]) >= 0, child[j]);
-            j++;
+          } else {
+            matc.push(...UI.makeArr(child));
           }
         });
         return new UI.pr.init(matc, this);
@@ -554,29 +549,21 @@ function isArrLike(obj) {
        * @param {String | Element} selector
        */
       children: function (selector) {
-        if (!UI.isElem(selector))
-          selector = UI.makeArr(document.querySelectorAll(selector));
         let matc = [];
         this.each(function () {
           let child = [...UI.makeArr(this.children)];
-          let j = 0;
-          while (j < child.length) {
-            if (this == child[j] || matc.indexOf(child[j]) >= 0) {
-              j++;
-              continue;
-            }
-            if (!UI.isEmpty(selector)) {
-              if (selector.indexOf(child[j]) >= 0) {
-                selector.each(function () { // jshint ignore:line
-                  matc.push(this);
-                });
+          if (selector && !UI.isEmpty(selector)) {
+            if (UI.isElem(selector)) {
+              if (child.indexOf(selector) != 0) {
+                matc.push(selector);
               }
             } else {
-              matc.push(child[j]);
+              matc.push(...UI.makeArr(this.querySelectorAll(selector)));
             }
-            //console.log(selector.indexOf(child[j]) >= 0, child[j]);
-            j++;
+          } else {
+            matc.push(...child);
           }
+
         });
         return new UI.pr.init(matc, this);
       },

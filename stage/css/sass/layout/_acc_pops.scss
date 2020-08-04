@@ -61,6 +61,10 @@
             -o-border-radius: 50%;
             background-color: $border;
             z-index: 999;
+
+            &:hover {
+                background-color: $hover;
+            }
         }
 
         .form_group {
@@ -137,6 +141,11 @@
             padding: 10px 25px;
             border-radius: 25px;
             font-family: cairo;
+            outline: none;
+
+            &:hover {
+                background-color: $hover;
+            }
         }
 
         .form_title,

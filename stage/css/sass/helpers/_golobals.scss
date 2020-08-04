@@ -188,6 +188,116 @@ a {
     position: relative;
 }
 
+.tol_tip {
+    position: absolute;
+    padding: 5px;
+    max-width: 200px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    display: none;
+    text-align: center;
+    font-family: cairo;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 999;
+
+    &::before {
+        content: "";
+        border-top: 10px solid transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        position: absolute;
+
+    }
+}
+
+.tol_bottom {
+    bottom: 0;
+    transform: translate(0, 100%);
+    right: 5%;
+}
+
+.tol_left {
+    left: 5%;
+    top: 50%;
+}
+
+.tol_right {
+    right: 5%;
+    top: 50%;
+}
+
+.tol_top {
+    right: 5%;
+    top: 0;
+}
+
+.err_tip {
+    background-color: $err_back;
+    color: $err_text;
+
+    &.tol_bottom::before {
+        border-bottom: 10px solid $err_back;
+        top: 0;
+        right: 5%;
+        transform: translate(-50%, -100%);
+    }
+
+    &.tol_left::before {
+        border-left: 10px solid $err_back;
+        right: 0;
+        top: 50%;
+        transform: translate(100%, -50%);
+    }
+
+    &.tol_right::before {
+        border-right: 10px solid $err_back;
+        left: 0;
+        top: 50%;
+        transform: translate(-100%, -50%);
+    }
+
+    &.tol_top::before {
+        border-top: 10px solid $err_back;
+        right: 5%;
+        bottom: 0;
+        transform: translate(-100%, 100%);
+    }
+}
+
+.title_tip {
+    background-color: $info_tip_back;
+    color: $text;
+
+    &.tol_bottom::before {
+        border-bottom: 10px solid $info_tip_back;
+        top: 0;
+        right: 5%;
+        transform: translate(-50%, -100%);
+    }
+
+    &.tol_left::before {
+        border-left: 10px solid $info_tip_back;
+        right: 0;
+        top: 50%;
+        transform: translate(100%, -50%);
+    }
+
+    &.tol_right::before {
+        border-right: 10px solid $info_tip_back;
+        left: 0;
+        top: 50%;
+        transform: translate(-100%, -50%);
+    }
+
+    &.tol_top::before {
+        border-top: 10px solid $info_tip_back;
+        right: 5%;
+        bottom: 0;
+        transform: translate(-100%, 100%);
+    }
+}
 
 
 .blur {
