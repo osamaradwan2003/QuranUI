@@ -25,6 +25,7 @@ ui(function () {
     function () {
       let ele = ui(this),
         target = ele.parents(".pop_up");
+      print(target);
       target.removeClass("open_pop").addClass("close_pop");
       ui("body").css("overflow", "auto");
     },
@@ -86,8 +87,8 @@ ui(function () {
     }
   }
 
-  make_option_nums("#crslyear", 1920, new Date().getFullYear(), 2003, undefined, "afterbegin");
-  make_option_nums("#crslday", 1, 31, 4, undefined,
+  make_option_nums("#crslyear", 1920, new Date().getFullYear() + 1, 2003, undefined, "afterbegin");
+  make_option_nums("#crslday", 1, 32, 4, undefined,
     "beforeend");
   let months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو", "يوليه", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
 
@@ -185,7 +186,9 @@ ui(function () {
     }
   }
 
-  ui("input[type='checkbox']").on("click", function () {
+
+  // policy checkbox validtor
+  ui("input[type='checkbox']").on("click, checked", function () {
     if (ui(this).attr("name") == "polccr") {
       if (this.checked != true) {
         let c = ui(this);
@@ -199,13 +202,91 @@ ui(function () {
     }
   });
 
-  ui("input").on("input blur", insert_valid);
+  //validate gender
 
+  let gen = document.querySelectorAll("input[name='gender']");
+
+  gen.forEach(e => {
+    e.addEventListener("click", function () {
+      ui(this).attr("data-valid", "true");
+      ui(this).parents(".gen_f").children(".err_tip").hide(200);
+    });
+  });
+  //selectbox valid
+  function selectBoxValid() {
+    let select = ui(this);
+    if (select.attr("id") == "crslday") {
+      make_validator({
+        ele: select,
+        showMessageEle: select.parent().siblings(".err_tip"),
+        emptyMessage: "الرجاء ادخال يوم الميلاد",
+        message: "هذا اليوم غير صحيح",
+        exp: /\b(0?[1-9]|[12][0-9]|3[01])\b/,
+        succsess: function (obj) {
+          obj.showMessageEle.hide(200);
+        }
+      });
+    } else if (select.attr("id") == "crslmonth") {
+      make_validator({
+        ele: select,
+        showMessageEle: select.parent().siblings(".err_tip"),
+        emptyMessage: "الرجاء ادخال شهر الميلاد",
+        message: "هذا الشهر غير صحيح",
+        makeExp: function (obj) {
+          print(this);
+          this.attr("data-valid", "false");
+          if (this.val().trim() == "") {
+            obj.showMessageEle.html(obj.emptyMessage).show(500);
+          } else if (!this.val() in months) { //jshint ignore:line
+            obj.showMessageEle.html(obj.message).show(500);
+          } else {
+            obj.succsess.call(obj.ele, obj);
+          }
+        },
+        succsess: function (obj) {
+          this.attr("data-valid", "true");
+          obj.showMessageEle.hide(200);
+        }
+      });
+    } else if (select.attr("id") == "crslyear") {
+      make_validator({
+        ele: select,
+        showMessageEle: select.parent().siblings(".err_tip"),
+        emptyMessage: "الرجاء ادخال سنة الميلاد",
+        message: "هذه السنة غير صحيحة",
+        makeExp: function (obj) {
+          window.se = this;
+          this.attr("data-valid", "false");
+          if (this.val().trim() == "") {
+            obj.showMessageEle.html(obj.emptyMessage).show(500);
+          } else if (this.val() < 1900 || this.val() > new Date().getFullYear()) {
+            obj.showMessageEle.html(obj.message).show(500);
+          } else if (parseInt(new Date().getFullYear() - this.val()) < 6) {
+            obj.message = "يجب ان يكون العمر اكبر من 6 سنوات";
+            obj.showMessageEle.html(obj.message).show(500);
+          } else {
+            obj.succsess.call(obj.ele, obj);
+          }
+        },
+        succsess: function (obj) {
+          this.attr("data-valid", "true");
+          obj.showMessageEle.hide(200);
+        }
+      });
+    }
+  }
+
+  ui("form select").on("change", selectBoxValid);
+
+  //inputs valid
+  ui("input").on("input blur", insert_valid);
+  //form valid on submit and if valid do submit
   ui("form").on("submit", function (e) {
     e.preventDefault();
     let valid = [];
-    ui(this).children("input").each(function (e) {
-      insert_valid.apply(this);
+    ui(this).children("input, select").each(function (e) {
+      insert_valid.call(this);
+      selectBoxValid.call(this);
       if (ui(this).attr("name") == "polccr") {
         if (this.checked != true) {
           let c = ui(this);
@@ -215,6 +296,14 @@ ui(function () {
           let c = ui(this);
           c.siblings(".err_tip").hide(400);
           c.attr("data-valid", "true");
+        }
+      } else if (ui(this).attr("name") == "gender") {
+        if (this.checked != true) {
+          ui(this).attr("data-valid", "false");
+          ui(this).parents(".gen_f").children(".err_tip").html("الرجاء اختيار الجنس").show(500);
+        } else {
+          ui(this).attr("data-valid", "true");
+          ui(this).parents(".gen_f").children(".err_tip").hide(200);
         }
       }
       valid.push(ui(this).attr("data-valid"));

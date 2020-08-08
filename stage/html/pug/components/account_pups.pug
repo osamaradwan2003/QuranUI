@@ -56,6 +56,7 @@
         .form_group
             h2.form_title
                 | إنشاء حساب
+        .form_group.serv_mess
         .inline_f_g.na_f_cr
             .form_group
                 input(type="text",
@@ -105,7 +106,7 @@
             .form_group
                 .slect_box
                     select.s_lg#crslday(title="يوم")
-                        option(selected disabled value="")
+                        option(selected value="")
                             | يوم
                     i.s_arr.fa.fa-angle-up(aria-hidden='true')
                 .tol_tip.tol_bottom.err_tip
@@ -123,6 +124,16 @@
                             | سنة
                     i.s_arr.fa.fa-angle-up(aria-hidden='true')
                 .tol_tip.tol_bottom.err_tip
+        .inline_f_g.gen_f
+            h4.f_t.g_t
+                | الجنس
+            .form_group
+                input#gfm(type="radio", value="female" name="gender")
+                label(for="gfm") انثي
+            .form_group
+                input#gm(type="radio",  value="male" name="gender")
+                label(for="gm") ذكر
+            .tol_tip.tol_bottom.err_tip
         .form_group.plc_ch
             input(type="checkbox", value="1" id="polccr" name="polccr", checked)
             label(for="polccr")

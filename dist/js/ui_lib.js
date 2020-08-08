@@ -426,6 +426,18 @@ function isArrLike(obj) {
         });
         return classList.indexOf(className) >= 0 ? true : false;
       },
+      hasId: function (idName) {
+        if (!idName || UI.isEmpty(idName)) return UI.err("Pleas Input Class Name");
+        if (type(idName) != "string") {
+          return UI.err("Class Name is Note String");
+        }
+        let idList = [];
+        this.each(function () {
+          idList.push(...this.id.split(" "));
+          //return classList;
+        });
+        return idList.indexOf(idName) >= 0 ? true : false;
+      },
       /**
        *
        * @param {String | Element} selector
@@ -456,31 +468,26 @@ function isArrLike(obj) {
        * @param {String | Element} selector
        */
       parents: function (selector) {
+        if (!UI.isElem(selector)) selector = UI.makeArr(document.querySelectorAll(selector));
         let parentNode = this.makeParentTree();
-        if (!selector || UI.isEmpty(selector)) {
-          return new UI.pr.init(this.parentUntil(), this);
-        }
         let matches = [];
-        selector = UI.makeArr(document.querySelectorAll(selector)) || selector;
-
         this.each(function (_, i) {
-          if (UI.isElem(selector)) {
-            if (matches.indexOf(selector) == -1) {
-              if (parentNode[i].indexOf(selector) != -1) matches.push(selector);
-            }
-          } else {
-            //print(parentNode[i]);
-            for (let j = 0; j < selector.length; j++) {
-              if (matches.indexOf(selector[j]) == -1) {
-                if (parentNode[i].indexOf(selector[j])) {
-                  matches.push(selector[j]);
-                  break;
+          let j = 0;
+          prf:
+            for (; j < parentNode[i].length;) {
+              if (matches.indexOf(parentNode[i][j]) >= 0) {
+                j++;
+                continue;
+              }
+              for (let z = 0; z < selector.length; z++) {
+                if (selector[z] == parentNode[i][j]) {
+                  matches.push(selector[z]);
+                  break prf;
                 }
               }
+              j++;
             }
-          }
         });
-
         return new UI.pr.init(matches, this);
       },
       /**

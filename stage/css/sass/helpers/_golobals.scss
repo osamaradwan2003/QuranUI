@@ -19,6 +19,15 @@ body {
 a {
     text-decoration: none;
     color: $text;
+    cursor: pointer;
+}
+
+[data-o-p-f-p] {
+    margin-right: 10px;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 // end global configration
@@ -233,6 +242,36 @@ a {
     top: 0;
 }
 
+.gen_f {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 95%;
+    margin: 0 auto;
+    position: relative;
+
+    .form_group {
+        margin-right: 15px;
+
+        label {
+            font-family: cairo;
+        }
+    }
+
+    .f_t::after {
+        content: " : ";
+    }
+}
+
+.f_t {
+    text-align: center;
+    font-family: cairo;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+    // width: 100%;
+    margin: 0;
+}
+
 .err_tip {
     background-color: $err_back;
     color: $err_text;
@@ -296,6 +335,30 @@ a {
         right: 5%;
         bottom: 0;
         transform: translate(-100%, 100%);
+    }
+}
+
+.form_group.serv_mess {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.err_mess_f_s {
+    background: $err_back;
+    width: 95%;
+    height: 100%;
+    text-align: center;
+    padding: 5px;
+    margin: 0 auto;
+    color: $err_text;
+    font-weight: bold;
+    font-family: cairo;
+    text-align: right;
+    padding-right: 15px;
+
+    a {
+        font-size: 14px;
+        color: #3f43b5;
     }
 }
 

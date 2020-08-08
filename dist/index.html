@@ -137,6 +137,7 @@
         <div class="form_group">
           <h2 class="form_title">إنشاء حساب</h2>
         </div>
+        <div class="form_group serv_mess"></div>
         <div class="inline_f_g na_f_cr">
           <div class="form_group">
             <input class="acc_inp" type="text" name="crfname" id="crfname" placeholder="" autocomplete="off"/>
@@ -163,7 +164,7 @@
           <div class="form_group">
             <div class="slect_box">
               <select class="s_lg" id="crslday" title="يوم">
-                <option selected="selected" disabled="disabled" value="">يوم</option>
+                <option selected="selected" value="">يوم</option>
               </select><i class="s_arr fa fa-angle-up" aria-hidden="true"></i>
             </div>
             <div class="tol_tip tol_bottom err_tip"></div>
@@ -184,6 +185,18 @@
             </div>
             <div class="tol_tip tol_bottom err_tip"></div>
           </div>
+        </div>
+        <div class="inline_f_g gen_f">
+          <h4 class="f_t g_t">الجنس</h4>
+          <div class="form_group">
+            <input id="gfm" type="radio" value="female" name="gender"/>
+            <label for="gfm">انثي</label>
+          </div>
+          <div class="form_group">
+            <input id="gm" type="radio" value="male" name="gender"/>
+            <label for="gm">ذكر</label>
+          </div>
+          <div class="tol_tip tol_bottom err_tip"></div>
         </div>
         <div class="form_group plc_ch">
           <input type="checkbox" value="1" id="polccr" name="polccr" checked="checked"/>

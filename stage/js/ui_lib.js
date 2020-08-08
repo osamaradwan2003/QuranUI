@@ -69,7 +69,7 @@ function each(callback) {
   let i = 0,
     len = this.length;
   if (Array.isArray(this) || isArrLike(this) || typeof this == "string") {
-    for (; i < len;) {
+    for (; i < len; ) {
       callback.call(this[i], this[i], i);
       i++;
     }
@@ -119,14 +119,14 @@ function isArrLike(obj) {
   "use strict";
 
   if (typeof module === "object" && typeof module.exports === "object") {
-    module.exports = global.document ?
-      factory(global, true) :
-      function (w) {
-        if (!w.document) {
-          error("UI Require window with a document");
-        }
-        return factory(w);
-      };
+    module.exports = global.document
+      ? factory(global, true)
+      : function (w) {
+          if (!w.document) {
+            error("UI Require window with a document");
+          }
+          return factory(w);
+        };
   } else {
     factory(global);
   }
@@ -274,11 +274,11 @@ function isArrLike(obj) {
                 computed.push(this);
               });
             }
-            return computed != [] && !computed.isEmpty() ?
-              computed.length == 1 ?
-              computed[0] :
-              computed :
-              undefined;
+            return computed != [] && !computed.isEmpty()
+              ? computed.length == 1
+                ? computed[0]
+                : computed
+              : undefined;
           } else if (typeof prop == "object") {
             prop.each(function (val, k) {
               self.get_set_ele_prop("style", function (e, p) {
@@ -321,7 +321,19 @@ function isArrLike(obj) {
        *      console.log(e)
        * })
        */
-      on: function (evt, callback, preventDefulte = false, opt = false) {
+      on: function (
+        evt,
+        selector,
+        callback,
+        preventDefulte = false,
+        opt = false
+      ) {
+        if (selector && isFunc(selector)) {
+          callback = selector;
+          selector = "";
+        } else {
+          selector = document.querySelector(selector);
+        }
         if (!isFunc(callback)) return UI.err("Callback is Not a function");
         evt = evt.toLowerCase().split(" ");
         let self = this;
@@ -333,8 +345,12 @@ function isArrLike(obj) {
               event,
               function (ev) {
                 if (preventDefulte) ev.preventDefault();
-                if (isFunc(callback)) {
-                  callback.call(e, ev, i, self);
+                if (selector && !UI.isEmpty(selector)) {
+                  if (e.target && e.target == selector) {
+                    callback.call(this, ev, i, self);
+                  }
+                } else {
+                  callback.call(this, ev, i, self);
                 }
               },
               opt
@@ -426,6 +442,19 @@ function isArrLike(obj) {
         });
         return classList.indexOf(className) >= 0 ? true : false;
       },
+      hasId: function (idName) {
+        if (!idName || UI.isEmpty(idName))
+          return UI.err("Pleas Input Class Name");
+        if (type(idName) != "string") {
+          return UI.err("Class Name is Note String");
+        }
+        let idList = [];
+        this.each(function () {
+          idList.push(...this.id.split(" "));
+          //return classList;
+        });
+        return idList.indexOf(idName) >= 0 ? true : false;
+      },
       /**
        *
        * @param {String | Element} selector
@@ -456,31 +485,26 @@ function isArrLike(obj) {
        * @param {String | Element} selector
        */
       parents: function (selector) {
+        if (!UI.isElem(selector))
+          selector = UI.makeArr(document.querySelectorAll(selector));
         let parentNode = this.makeParentTree();
-        if (!selector || UI.isEmpty(selector)) {
-          return new UI.pr.init(this.parentUntil(), this);
-        }
         let matches = [];
-        selector = UI.makeArr(document.querySelectorAll(selector)) || selector;
-
         this.each(function (_, i) {
-          if (UI.isElem(selector)) {
-            if (matches.indexOf(selector) == -1) {
-              if (parentNode[i].indexOf(selector) != -1) matches.push(selector);
+          let j = 0;
+          prf: for (; j < parentNode[i].length; ) {
+            if (matches.indexOf(parentNode[i][j]) >= 0) {
+              j++;
+              continue;
             }
-          } else {
-            //print(parentNode[i]);
-            for (let j = 0; j < selector.length; j++) {
-              if (matches.indexOf(selector[j]) == -1) {
-                if (parentNode[i].indexOf(selector[j])) {
-                  matches.push(selector[j]);
-                  break;
-                }
+            for (let z = 0; z < selector.length; z++) {
+              if (selector[z] == parentNode[i][j]) {
+                matches.push(selector[z]);
+                break prf;
               }
             }
+            j++;
           }
         });
-
         return new UI.pr.init(matches, this);
       },
       /**
@@ -563,7 +587,6 @@ function isArrLike(obj) {
           } else {
             matc.push(...child);
           }
-
         });
         return new UI.pr.init(matc, this);
       },
@@ -750,26 +773,28 @@ function isArrLike(obj) {
       },
     };
 
-    "click input focusIn focusOut mouseEnter keyPress unload scroll resize load focus submit dbClick mouseLeave keyDown keyUp blur hover change".split(" ").each(function (e) {
-      UI.pr[e] = function (callback) {
-        if (!callback) {
-          for (let i = 0; i < this.length; i++) {
-            if (e.toLowerCase() == "focus" || e.toLowerCase() == "focusin") {
-              this[i].focus();
-              return this;
-            } else if (e.toLowerCase() == "click") {
-              this[i].click();
-              return this;
+    "click input focusIn focusOut mouseEnter keyPress unload scroll resize load focus submit dbClick mouseLeave keyDown keyUp blur hover change"
+      .split(" ")
+      .each(function (e) {
+        UI.pr[e] = function (callback) {
+          if (!callback) {
+            for (let i = 0; i < this.length; i++) {
+              if (e.toLowerCase() == "focus" || e.toLowerCase() == "focusin") {
+                this[i].focus();
+                return this;
+              } else if (e.toLowerCase() == "click") {
+                this[i].click();
+                return this;
+              }
+              this[i]["on" + e.toLowerCase()]();
             }
-            this[i]["on" + e.toLowerCase()]();
+            return this;
           }
+          if (!isFunc(callback)) return UI.err("Callback is Not a function");
+          this.addEvent(e, callback);
           return this;
-        }
-        if (!isFunc(callback)) return UI.err("Callback is Not a function");
-        this.addEvent(e, callback);
-        return this;
-      };
-    });
+        };
+      });
 
     /**
      * marge to object and return frist
@@ -921,9 +946,14 @@ function isArrLike(obj) {
       },
     });
 
-    UI.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function (e, i) {
-      c2t["[object " + e + "]"] = e.toLowerCase();
-    });
+    UI.each(
+      "Boolean Number String Function Array Date RegExp Object Error Symbol".split(
+        " "
+      ),
+      function (e, i) {
+        c2t["[object " + e + "]"] = e.toLowerCase();
+      }
+    );
 
     UI.pr.omg({
       /**
@@ -1020,12 +1050,13 @@ function isArrLike(obj) {
           speed = this.get_speed(speed);
           let last = +new Date();
           let tick = function () {
-            ele.style.opacity = +ele.style.opacity + (new Date() - last) / speed;
+            ele.style.opacity =
+              +ele.style.opacity + (new Date() - last) / speed;
             last = +new Date();
 
             if (+ele.style.opacity < 1) {
               (window.requestAnimationFrame && requestAnimationFrame(tick)) ||
-              setTimeout(tick, 16);
+                setTimeout(tick, 16);
             } else {
               if (callback) {
                 if (isFunc(callback)) {
@@ -1048,7 +1079,7 @@ function isArrLike(obj) {
             last = +new Date();
             if (+ele.style.opacity > 0) {
               (window.requestAnimationFrame && requestAnimationFrame(tick)) ||
-              setTimeout(tick, 16);
+                setTimeout(tick, 16);
             } else {
               if (callback) {
                 if (isFunc(callback)) {
@@ -1140,16 +1171,16 @@ function isArrLike(obj) {
       if (obj == null) {
         return obj + "";
       }
-      return typeof obj === "object" || typeof obj === "function" ?
-        c2t[toStr.call(obj)] || "object" :
-        typeof obj;
+      return typeof obj === "object" || typeof obj === "function"
+        ? c2t[toStr.call(obj)] || "object"
+        : typeof obj;
     }
     w.type = type;
 
     /**
      * @param {Element | Array | Node | String}
      */
-    var init = (UI.pr.init = function ( /**Element | Array | Node*/ elem, root) {
+    var init = (UI.pr.init = function (/**Element | Array | Node*/ elem, root) {
       if (!elem) return;
       if (elem.isEmpty()) return;
       root = root || rootUi;
@@ -1181,11 +1212,16 @@ function isArrLike(obj) {
 
     UI.ready = function (callback) {
       // see if DOM is already available
-      if (document.readyState === "complete" || document.readyState === "interactive") {
+      if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+      ) {
         // call on next available tick
         setTimeout(() => callback.call(document), 1);
       } else {
-        document.addEventListener("DOMContentLoaded", () => callback.call(document));
+        document.addEventListener("DOMContentLoaded", () =>
+          callback.call(document)
+        );
       }
     };
 
@@ -1213,7 +1249,6 @@ function isArrLike(obj) {
     if (!noGlobal) {
       window.ui = window.s = UI;
     }
-
 
     return UI;
   })(window)
